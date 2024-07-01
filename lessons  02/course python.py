@@ -43,7 +43,7 @@ def main():
         elif duc == 'gold':
             discount = GoldDiscount()
         else:
-            print('Invalid animal')
+            print('Invalid input write:Regular,Silver,Gold')
             continue
         client = Client(name, discount)
         final_price = client.get_total(tot_amount)

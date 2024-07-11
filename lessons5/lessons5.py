@@ -76,7 +76,7 @@ cart_two.add_product(product10, 4)
 cart_one += cart_two
 print(cart_one)
 
-# Task 2
+# Task 3
 class ProperFraction:
 
     def __init__(self, x, y):

@@ -76,9 +76,9 @@ cart_two.add_product(product10, 4)
 cart_one += cart_two
 print(cart_one)
 
-# Task 2
 import logging
 # Task 2
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 

@@ -76,7 +76,139 @@ cart_two.add_product(product10, 4)
 cart_one += cart_two
 print(cart_one)
 
+# Task 2
+import logging
+# Task 2
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+formatter = logging.Formatter("%(asctime)s:%(name)s:%(message)s")
+file_handler = logging.FileHandler('data.log')
+file_handler.setFormatter(formatter)
+file_handler.setLevel(logging.ERROR)
+
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+stream_handler.setLevel(logging.DEBUG)
+
+logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
+
+class Iterator:
+    def __init__(self, categories):
+        self.categories = categories
+        self.index = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index < len(self.categories):
+            category = self.categories[self.index]
+            self.index += 1
+            return category
+        raise StopIteration
+class Choice:
+    def __init__(self, name, description, price):
+        self.name = name
+        self.description = description
+        self.price = price
+        if int(price) < 1:
+            logger.error('An error occurred, length is 0')
+            raise ValueError('An error occurred, length is 0')
+        logger.info(f'{name}: {description} = {price}')
+
+    def __str__(self):
+        return f'{self.name} - {self.description}: ${self.price:.2f}'
+
+
+class Category:
+    def __init__(self, name):
+        self.name = name
+        self.dishes = []
+
+    def add_dish(self, dish):
+        self.dishes.append(dish)
+
+    def __str__(self):
+        c_category = '\n  '.join(str(dish) for dish in self.dishes)
+        return f"{self.name}:\n  {c_category}"
+
+
+class Menu:
+    def __init__(self):
+        self.categories = []
+
+    def add_category(self, category):
+        self.categories.append(category)
+
+    def __str__(self):
+        menu_category = '\n'.join(str(category) for category in self.categories)
+
+        return f"Menu:\n{menu_category}"
+
+    def __iter__(self):
+        return Iterator(self.categories)
+
+    def __getitem__(self, item):
+        return self.categories[item]
+
+    def __len__(self):
+        return len(self.categories)
+
+
+class Order:
+    def __init__(self):
+        self.dishes = []
+
+    def __iadd__(self, dish):
+        if isinstance(dish, Choice):
+            self.dishes.append(dish)
+            logger.info(f'Added dish to order: {dish}')
+        else:
+            logger.error('This dish is not available to order. You can only order from the menu')
+            raise ValueError('This dish is not available to order. You can only order from the menu')
+        return self
+
+    def __str__(self):
+        if not self.dishes:
+            return 'there is nothing in the order'
+        return 'Order:\n' + '\n'.join(str(dish) for dish in self.dishes)
+
+
+dish1 = Choice('Beef steak', 'beef, fries, salad', 40)
+dish2 = Choice('Shrimp tempura', 'shrimp', 6)
+dish3 = Choice('Burger', 'pork cutlet, onion, tomato, signature sauce', 35)
+dish4 = Choice('Parmigiano salad', 'eggplant, tomato, lettuce, mozzarella cheese', 16)
+dish5 = Choice('Strawberry flambé with ice cream', 'strawberries, brandy/cognac, ice cream', 10)
+
+main_dishes = Category("Main dishes")
+snacks = Category("Snacks")
+desserts = Category("Desserts")
+
+main_dishes.add_dish(dish1)
+main_dishes.add_dish(dish2)
+main_dishes.add_dish(dish3)
+snacks.add_dish(dish4)
+desserts.add_dish(dish5)
+
+menu = Menu()
+logger.info('Menu created')
+menu.add_category(main_dishes)
+menu.add_category(snacks)
+menu.add_category(desserts)
+
+for item in menu:
+    print(item)
+
+order = Order()
+order += dish1
+order += dish2
+print(order)
+
+
 # Task 3
+
 class ProperFraction:
 
     def __init__(self, x, y):

@@ -105,7 +105,7 @@ class Payment_Processor:
 
 payment_processor = Payment_Processor()
 payment_processor.adding_payment(Credit_card('123 333 563 7878', 'Alex', '12/26', '895'))
-payment_processor.adding_payment(Bank_transfer('123 333 563 7878', 'Alex', 'Privat24'))
+payment_processor.adding_payment(Bank_transfer('123 333 563 7878', 'Alex', 'PrivatBank'))
 payment_processor.adding_payment(Online_wallet('123 333 563 7878', 'PayPay'))
 
 payment_processor.execution_of_payment(0, 100)

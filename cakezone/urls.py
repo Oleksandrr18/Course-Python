@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 
+
+
 from cakezone import settings
 
 urlpatterns = [
@@ -27,7 +29,10 @@ urlpatterns = [
     path('master_chefs/', include('master_chefs.urls')),
     path('services/', include('services.urls')),
     path('contacts/', include('contacts.urls')),
+    path('', include('contacts.urls')),
+
 ]
+
 
 
 if settings.DEBUG:

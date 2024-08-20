@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Contacts
+from .models import Contacts, MessageFromCustomer, Subscriber
 
-class ContactsInline(admin.TabularInline):
-    model = Contacts
+
+admin.site.register(MessageFromCustomer)
+admin.site.register(Subscriber)
 
 @admin.register(Contacts)
 class ContactsAdmin(admin.ModelAdmin):

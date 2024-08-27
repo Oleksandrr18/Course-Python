@@ -20,7 +20,10 @@ from django.conf.urls.static import static
 
 
 
+
 from cakezone import settings
+from account.views import RegisterView
+from account.views import MyLoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +33,9 @@ urlpatterns = [
     path('services/', include('services.urls')),
     path('contacts/', include('contacts.urls')),
     path('', include('contacts.urls')),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('login/', MyLoginView.as_view(), name='login'),
+    # path('logout/', , name='logout'),
 
 ]
 
